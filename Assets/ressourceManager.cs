@@ -4,7 +4,6 @@ using System;
 
 public class ressourceManager : MonoBehaviour
 {
-    public GameObject robotGO;
     public GameObject[] corpsRobot;
     public GameObject[] partsRobot;
 
@@ -15,21 +14,22 @@ public class ressourceManager : MonoBehaviour
 
     public GameObject createRobot(int corpsId)
     {
-        GameObject robot = (GameObject)GameObject.Instantiate(robotGO);
         GameObject corps = (GameObject)GameObject.Instantiate(corpsRobot[corpsId]);
 
         for(int i = 0; i < corps.transform.childCount; i++)
         {
             GameObject part = (GameObject)GameObject.Instantiate(partsRobot[0]);
+            Transform child = corps.transform.GetChild(i);
+            partScript pScr = part.GetComponent<partScript>();
 
-            part.transform.parent = robot.transform;
-            part.transform.position = corps.transform.GetChild(i).position;
-            part.transform.rotation = corps.transform.GetChild(i).rotation;
+            part.transform.parent = child;
+            part.transform.localPosition = Vector3.zero;
+            part.transform.localRotation = new Quaternion();
+
+            pScr.connectJoint(corps, child.localPosition);
         }
 
-        corps.transform.parent = robot.transform;
-
-        return robot;
+        return corps;
     }
 
     // Update is called once per frame

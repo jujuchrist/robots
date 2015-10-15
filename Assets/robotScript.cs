@@ -12,14 +12,6 @@ public class robotScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        foreach(Transform child in transform)
-        {
-            if (child.gameObject.tag == "corps")
-            {
-                Rigidbody2D rb = child.GetComponent<Rigidbody2D>();
-                rb.velocity = Vector2.right;
-            }
-        }
-        
+               
 	}   
 }
